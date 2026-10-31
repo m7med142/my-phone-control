@@ -1,0 +1,267 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Phone Control</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #101827;
+  color: white;
+}
+
+header {
+  padding: 22px;
+  background: #172438;
+  border-bottom: 1px solid #293950;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 23px;
+  color: #62a5ff;
+}
+
+header p {
+  color: #9caec5;
+  font-size: 13px;
+}
+
+.container {
+  padding: 18px;
+  max-width: 650px;
+  margin: auto;
+}
+
+.card {
+  background: #1b2a40;
+  padding: 19px;
+  border-radius: 15px;
+  margin-bottom: 16px;
+  border: 1px solid #30435e;
+}
+
+.card h2 {
+  font-size: 17px;
+  margin-top: 0;
+}
+
+.device {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status {
+  color: #ffc857;
+  font-size: 13px;
+}
+
+button {
+  background: #2879ed;
+  color: white;
+  border: 0;
+  padding: 13px;
+  width: 100%;
+  border-radius: 9px;
+  font-size: 15px;
+  margin-top: 12px;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: #30435e;
+}
+
+button.stop {
+  background: #b83d48;
+}
+
+.code {
+  font-size: 29px;
+  letter-spacing: 7px;
+  text-align: center;
+  color: #69aaff;
+  padding: 15px;
+  direction: ltr;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.item {
+  background: #263951;
+  padding: 18px 8px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.item span {
+  display: block;
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+small {
+  color: #aab9cc;
+}
+
+.notice {
+  color: #f5d68b;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #8394aa;
+  font-size: 12px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>My Phone Control</h1>
+  <p>لوحة التحكم الخاصة بأجهزتك</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>📱 الأجهزة</h2>
+    <div class="device">
+      <strong>OPPO A3</strong>
+      <span class="status">● غير متصل</span>
+    </div>
+    <hr style="border-color:#30435e">
+    <div class="device">
+      <strong>OPPO A9</strong>
+      <span style="color:#52d69a">● جهاز التحكم</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🔐 ربط جهاز جديد</h2>
+    <p><small>أنشئ رمز ربط تجريبيًا للجهاز الآخر.</small></p>
+
+    <div class="code" id="pairCode">------</div>
+
+    <button onclick="generateCode()">
+      إنشاء رمز ربط
+    </button>
+
+    <button class="secondary" onclick="copyCode()">
+      نسخ رمز الربط
+    </button>
+    <p class="notice">
+      هذا رمز تجريبي للواجهة فقط، وليس وسيلة ربط فعلية.
+      الربط الحقيقي يحتاج خادمًا آمنًا وتطبيقًا على الجهاز الثاني.
+    </p>
+  </div>
+
+  <div class="card">
+    <h2>🎛️ لوحة التحكم</h2>
+
+    <div class="grid">
+      <div class="item">
+        <span>🖥️</span>
+        مشاركة الشاشة
+        <small>بموافقة الجهاز</small>
+      </div>
+
+      <div class="item">
+        <span>📷</span>
+        الكاميرا
+        <small>بإذن صاحب الجهاز</small>
+      </div>
+
+      <div class="item">
+        <span>🎙️</span>
+        الميكروفون
+        <small>بإذن صاحب الجهاز</small>
+      </div>
+
+      <div class="item">
+        <span>📁</span>
+        الملفات
+        <small>ملفات مختارة</small>
+      </div>
+
+      <div class="item">
+        <span>🔋</span>
+        البطارية
+        <small>تحتاج اتصالًا فعليًا</small>
+      </div>
+
+      <div class="item">
+        <span>📍</span>
+        الموقع
+        <small>بموافقة المستخدم</small>
+      </div>
+    </div>
+
+    <button class="secondary" onclick="alert('يلزم إعداد الخادم وتطبيق Android لإتمام الاتصال.')">
+      طلب اتصال بالجهاز
+    </button>
+
+    <button class="stop" onclick="alert('لا توجد جلسة اتصال نشطة.')">
+      إنهاء الاتصال
+    </button>
+  </div>
+
+  <div class="card">
+    <h2>🛡️ الأمان</h2>
+    <p class="notice">
+      الاتصال الحقيقي سيكون مشفرًا، مع موافقة صاحب الجهاز
+      وإمكانية إيقاف المشاركة وإلغاء الربط في أي وقت.
+    </p>
+  </div>
+
+</div>
+
+<footer>
+  My Phone Control © 2026
+  <br>
+  الإصدار الأول - واجهة تجريبية
+</footer>
+
+<script>
+function generateCode() {
+  const code = Math.floor(100000 + Math.random() * 900000);
+  document.getElementById("pairCode").textContent = code;
+}
+
+function copyCode() {
+  const code = document.getElementById("pairCode").textContent;
+
+  if (code === "------") {
+    alert("أنشئ رمز الربط أولاً");
+    return;
+  }
+
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(code)
+      .then(() => alert("تم نسخ الرمز"))
+      .catch(() => alert("تعذر النسخ"));
+  } else {
+    alert("رمز الربط: " + code);
+  }
+}
+</script>
+
+</body>
+</html>
